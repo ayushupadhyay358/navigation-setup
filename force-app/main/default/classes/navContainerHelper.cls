@@ -12,7 +12,7 @@ public with sharing class navContainerHelper {
             Map<String, Schema.SObjectField> fieldMap = result.fields.getMap(); // Getting a map of fields for the object
 
             for(String field : fieldMap.keySet()) {
-                Schema.SObjectField sobjField = fieldMap.get(fiefieldldName);
+                Schema.SObjectField sobjField = fieldMap.get(field);
                 String FieldName = sobjField.getDescribe().getName();
 	            fields.add(FieldName);
             }
