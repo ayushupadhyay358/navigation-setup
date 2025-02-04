@@ -4,7 +4,7 @@ public with sharing class navContainerHelper {
     }
 
     @AuraEnabled
-    public static List<String> methodName(String ObjectName){
+    public static List<String> getFieldData(String ObjectName){
         try {
             List<String> fields = new List<String>();
             Schema.SObjectType sObjectType = Schema.getGlobalDescribe().get(ObjectName); // Getting the sObject type for the object for which the fields need to be fetched
