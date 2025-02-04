@@ -3,7 +3,7 @@ public with sharing class navContainerHelper {
 
     }
 
-    @AuraEnabled
+    @AuraEnabled(cacheable=true)
     public static List<String> getFieldData(String ObjectName){
         try {
             List<String> fields = new List<String>();
