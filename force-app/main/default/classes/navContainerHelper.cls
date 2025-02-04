@@ -16,7 +16,7 @@ public with sharing class navContainerHelper {
                 String FieldName = sobjField.getDescribe().getName();
 	            fields.add(FieldName);
             }
-
+            System.debug(fields);
             return fields;
         } catch (Exception e) {
             throw new AuraHandledException(e.getMessage());
