@@ -14,7 +14,7 @@ public with sharing class navContainerHelper {
             for(String field : fieldMap.keySet()) {
                 Schema.SObjectField sobjField = fieldMap.get(field);
                 String FieldName = sobjField.getDescribe().getName();
-	            fields.add(FieldName);
+	            fields.add(ObjectName + '.' + FieldName);
             }
             System.debug(fields);
             return fields;
