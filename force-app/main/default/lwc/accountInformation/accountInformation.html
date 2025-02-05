@@ -1,15 +1,17 @@
 <template>
     <div class="slds-var-m-around_medium">
         <h1 class="title">Account Information</h1>
-        <template lwc:if={isFormReady}>
-            <lightning-record-form record-id={recordId} object-api-name={objectApiName} fields={FIELDS} columns="2"
-                mode="view" onsubmit={handleSubmit}>
-            </lightning-record-form>
-        </template>
-        <template lwc:else>
-            <p>Form not loaded.</p>
-            <p>Record Id = {recordId}</p>
-            <p>Object Api Name = {objectApiName}</p>
-        </template>
+        <div class="container slds-scrollable slds-var-m-around_medium" style="height:10px;width:95px" tabindex="0">
+            <template lwc:if={isFormReady}>
+                <lightning-record-form record-id={recordId} object-api-name={objectApiName} fields={FIELDS} columns="2"
+                    mode="view" onsubmit={handleSubmit}>
+                </lightning-record-form>
+            </template>
+            <template lwc:else>
+                <p>Form not loaded.</p>
+                <p>Record Id = {recordId}</p>
+                <p>Object Api Name = {objectApiName}</p>
+            </template>
+        </div>
     </div>
 </template>
