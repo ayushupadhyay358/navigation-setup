@@ -7,6 +7,8 @@ export default class NavContainParent extends LightningElement {
     @api recordId;
     @api objectApiName;
 
+    componentRef;
+
     objectFields = [];
 
     constructor() {
@@ -26,7 +28,10 @@ export default class NavContainParent extends LightningElement {
     }
 
     async connectedCallback() {
-        await this.fetchFieldData();
+        //await this.fetchFieldData();
+        await import("c/accountInformation")
+        .then(({ default: ctor }) => (this.componentRef = ctor))
+        .catch((error) => console.log("Error importing component"));
     }
 
     fetchFieldData() {
