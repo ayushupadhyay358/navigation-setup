@@ -13,10 +13,12 @@ import ACCOUNT_SITE from '@salesforce/schema/Account.Site';
 export default class AccountInformation extends LightningElement {
     @api recordId;
     @api objectApiName;
-    FIELDS = [ACCOUNT_NAME,ACCOUNT_PARENT,ACCOUNT_INDUSTRY,ACCOUNT_TYPE,ACCOUNT_NUMBER,ACCOUNT_ACTIVE,ACCOUNT_OWNER,ACCOUNT_RATING,ACCOUNT_OWNERSHIP,ACCOUNT_SITE];
+    FIELDS = [ACCOUNT_NAME, ACCOUNT_ACTIVE, ACCOUNT_PARENT, ACCOUNT_OWNER, ACCOUNT_INDUSTRY, ACCOUNT_RATING, ACCOUNT_TYPE, ACCOUNT_OWNERSHIP, ACCOUNT_NUMBER, ACCOUNT_SITE];
     connectedCallback() {
         console.log("Hello");
     }
 
-    isFormReady = true;
+    get isFormReady() {
+        return this.recordId && this.objectApiName;
+    }
 }

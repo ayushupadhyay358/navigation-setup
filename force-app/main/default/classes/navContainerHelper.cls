@@ -3,6 +3,16 @@ public with sharing class navContainerHelper {
 
     }
 
+    @AuraEnabled
+    public static List<List_Configuration__c> getConfigList(String objectName){
+        try {
+            List<List_Configuration__c> configList = [Select Component_Name__c,Label__c,Order__c from List_Configuration__c where Object_API_Name__c = :objectName];
+            return configList;
+        } catch (Exception e) {
+            throw new AuraHandledException(e.getMessage());
+        }
+    }
+
     @AuraEnabled(cacheable=true)
     public static List<String> getFieldData(String ObjectName){
         try {
