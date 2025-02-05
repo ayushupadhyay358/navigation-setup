@@ -14,8 +14,8 @@ export default class AccountInformation extends LightningElement {
     @api recordId;
     @api objectApiName;
     FIELDS = [ACCOUNT_NAME, ACCOUNT_ACTIVE, ACCOUNT_PARENT, ACCOUNT_OWNER, ACCOUNT_INDUSTRY, ACCOUNT_RATING, ACCOUNT_TYPE, ACCOUNT_OWNERSHIP, ACCOUNT_NUMBER, ACCOUNT_SITE];
+    
     connectedCallback() {
-        console.log("Hello");
     }
 
     get isFormReady() {
