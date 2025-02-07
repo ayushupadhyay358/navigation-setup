@@ -7,7 +7,7 @@
                         <template for:each={listConfig} for:item="listItem">
                             <li class="slds-item" key={listItem.Component_Name__c}
                                 data-cmpname={listItem.Component_Name__c} onclick={handleComponentChange}
-                                onfocus={handleListFocus} onblur={handleListBlur}>
+                                onmouseenter={handleMouseEnter} onmouseleave={handleMouseLeave}>
                                 {listItem.Label__c}
                             </li>
                         </template>

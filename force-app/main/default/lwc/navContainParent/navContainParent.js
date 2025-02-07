@@ -10,8 +10,10 @@ export default class NavContainParent extends LightningElement {
 
     @track componentRef;
 
+    @track componentList = {};
+
     // objectFields = [];
-    listConfig;
+    @track listConfig = [];
 
     constructor() {
         super();
@@ -20,38 +22,62 @@ export default class NavContainParent extends LightningElement {
     async connectedCallback() {
         console.log(this.objectApiName);
         //await this.fetchFieldData();
-        await import("c/accountInformation")
-        .then(({ default: ctor }) => (this.componentRef = ctor))
-            .catch((error) => console.log("Error importing component"));
         await this.fetchListData();
+
+        this.componentRef = this.componentList[Object.keys(this.componentList)[0]];
+
+        // await import("c/accountInformation")
+        // .then(({ default: ctor }) => (this.componentRef = ctor))
+        //     .catch((error) => console.log("Error importing component"));
     }
 
 
-    fetchListData() {
+    async fetchListData() {
         console.log('Fetching list data for object:', this.objectApiName);
-        getConfigList({ objectName: this.objectApiName })
+        await getConfigList({ objectName: this.objectApiName })
             .then((data) => {
                 console.log('Data received:', data);
                 this.listConfig = data;
                 console.log('List config Data', JSON.stringify(this.listConfig));
+                // this.listConfig.forEach(config => {
+                //     const cmpRef = undefined;
+                //     import(config.Component_Name__c)
+                //         .then(({ default: ctor }) => (cmpRef = ctor))
+                //         .catch((error) => console.log(JSON.stringify(error)));
+                //     this.componentList[config.Component_Name__c] = cmpRef;
+                // });
+
             }).catch((error) => {
                 console.error('Error fetching list config data:', JSON.stringify(error));
-        });
+            });
+        
+        for (const config of this.listConfig) {
+            try {
+                const module = await import(config.Component_Name__c);
+                console.log('Module imported -',config.Component_Name__c)
+                this.componentList[config.Component_Name__c] = module.default;
+            } catch (error) {
+                console.log(JSON.stringify(error));
+            }
+        }
     }
 
     async handleComponentChange(event) {
         const cmpRef = event.target.dataset.cmpname;
-        console.log('cmpRef -',cmpRef);
-        await import(cmpRef)
-        .then(({ default: ctor }) => (this.componentRef = ctor))
-            .catch((error) => console.log(JSON.stringify(error)));
+        // console.log('cmpRef -',cmpRef);
+        // await import(cmpRef)
+        // .then(({ default: ctor }) => (this.componentRef = ctor))
+        //     .catch((error) => console.log(JSON.stringify(error)));
+        this.componentRef = this.componentList[cmpRef];
     }
 
-    handleListFocus(event) {
+    handleMouseEnter(event) {
         event.target.classList.add("highlight");
+        console.log(event.target.classList);
     }
 
-    handleListBlur(event) {
+    handleMouseLeave(event) {
         event.target.classList.remove("highlight");
+        console.log(event.target.classList);
     }
 }
